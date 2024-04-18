@@ -14,6 +14,8 @@ import { router as indexRouter } from './routes/index.js'
 // sample for importing a router
 import { router as flightsRouter } from './routes/flights.js'
 
+import { router as mealsRouter } from './routes/meals.js'
+
 // create the express app
 const app = express()
 
@@ -29,12 +31,15 @@ app.use(
     path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')
   )
 )
+app.use(methodOverride('_method'))
 
 // mount imported routes
 app.use('/', indexRouter)
 
 // sample for mounting an imported router
 app.use('/flights', flightsRouter)
+
+app.use('/meals', mealsRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

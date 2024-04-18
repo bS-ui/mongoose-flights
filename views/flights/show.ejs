@@ -1,0 +1,69 @@
+<%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/flights/show.css" />
+<%- include('../partials/nav') %>
+
+<main>
+  <h1><%= title %></h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Airline</th>
+        <th>Airport</th>
+        <th>Flight No.</th>
+        <th>Departure Date/Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= flight.airline %></td>
+        <td><%= flight.airport %></td>
+        <td><%= flight.flightNo %></td>
+        <td><%= flight.departs %></td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="/flights/<%= flight._id %>/edit">
+    <button>Edit Flight Details</button>
+  </a>
+  <h3>Meals:</h3>
+  <ul>
+  <% flight.meals.forEach(meal => { %>
+    <li><%= meal.name %></li>
+    <% }) %>
+  </ul>
+  <form action="/flights/<%= flight._id %>/meals" method="POST">
+    <label for="airline-input">Name:</label>
+    <select name="mealId" id="">
+      <% meals.forEach(meal => { %>
+        <option value="<%= meal._id %>"><%= meal.name %></option>
+      <% }) %>
+    </select>
+    <button type="submit">Add Meal To Flight</button>
+  </form>
+  <h3>Tickets:</h3>
+  <form action="/flights/<%= flight._id %>" method="POST">
+    <label for="airline-input">Seat:</label>
+    <input type="text" name="seat">
+    <label for="airport-input">Price:</label>
+    <input type="text" name="price">
+    <button type="submit">Add Ticket</button>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Seat</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flight.tickets.forEach(ticket => { %>
+      <tr>
+          <td><%= ticket.seat %></td>
+          <td>$<%= ticket.price %></td>
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+</main>
+
+<%- include('../partials/footer') %>

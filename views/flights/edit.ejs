@@ -1,0 +1,29 @@
+<%- include('../partials/html-head') %>
+<link rel="stylesheet" href="/stylesheets/flights/edit.css">
+<%- include('../partials/nav') %>
+
+<main>
+  <h1><%= title %></h1>
+  <form action="/flights/<%= flight._id %>?_method=PUT" method="POST">
+    <label for="airline-input">Airline:</label>
+    <input type="text" name="airline" value="<%= flight.airline %>">
+    <label for="airport-input">Airport:</label>
+    <input type="text" name="airport" value="<%= flight.airport %>">
+    <label for="flight-number-input">Flight No.:</label>
+    <input type="text" name="flightNo" value="<%= flight.flightNo %>">
+    <label for="departs-input">Departure Time/Date:</label>
+    <% newDate = flight.departs.toLocaleString("en-GB") %>
+    <% console.log(newDate) %>
+    <% year = newDate.substring(6,10) %>
+    <% month = newDate.substring(3,5) %>
+    <% day = newDate.substring(0,2) %>
+    <% hour = newDate.substring(12,14) %>
+    <% minute = newDate.substring(15,17) %>
+    <% console.log(`${year}-${month}`) %>
+    <% newDate = year+'-'+month+'-'+day+'T'+hour+':'+minute %>
+    <input type="datetime-local" name="departs"  value="<%= newDate %>">
+    <button type="submit">Edit Flight Data</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>
